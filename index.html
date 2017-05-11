@@ -5,10 +5,10 @@
     <title>Color Name & Hue</title>
     <script type="text/javascript" src="js/prototype.js" ></script>
     <script type="text/javascript" src="js/ondomready.js" ></script>
-	<script type="text/javascript" src="js/colormethods.js" ></script>
-	<script type="text/javascript" src="js/colorvaluepicker.js" ></script>
+	<script type="text/javascript" src="js/ColorMethods.js" ></script>
+	<script type="text/javascript" src="js/ColorValuePicker.js" ></script>
 	<script type="text/javascript" src="js/Slider_jd.js" ></script>
-	<script type="text/javascript" src="js/colorpicker.js" ></script>
+	<script type="text/javascript" src="js/ColorPicker.js" ></script>
 	<script type="text/javascript" src="js/ntc.js" ></script>
 
     <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -42,32 +42,32 @@
 <body>
 
 <div style="display:none;">
-<img src="js/images/map-saturation.png" />
-<img src="js/images/map-saturation-overlay.png" />
-<img src="js/images/map-brightness.png" />
-<img src="js/images/map-hue.png" />
-<img src="js/images/bar-saturation.png" />
-<img src="js/images/bar-brightness.png" />
-<img src="js/images/rangearrows.gif" />
-<img src="js/images/mappoint.gif" />
-<img src="js/images/bar-blue-tl.png" />
-<img src="js/images/bar-blue-tr.png" />
-<img src="js/images/bar-blue-bl.png" />
-<img src="js/images/bar-blue-br.png" />
-<img src="js/images/bar-red-tl.png" />
-<img src="js/images/bar-red-tr.png" />
-<img src="js/images/bar-red-bl.png" />
-<img src="js/images/bar-red-br.png" />
-<img src="js/images/bar-green-tl.png" />
-<img src="js/images/bar-green-tr.png" />
-<img src="js/images/bar-green-bl.png" />
-<img src="js/images/bar-green-br.png" />
-<img src="js/images/map-red-max.png" />
-<img src="js/images/map-red-min.png" />
-<img src="js/images/map-green-max.png" />
-<img src="js/images/map-green-min.png" />
-<img src="js/images/map-blue-max.png" />
-<img src="js/images/map-blue-min.png" />
+<img src="images/map-saturation.png" />
+<img src="images/map-saturation-overlay.png" />
+<img src="images/map-brightness.png" />
+<img src="images/map-hue.png" />
+<img src="images/bar-saturation.png" />
+<img src="images/bar-brightness.png" />
+<img src="images/rangearrows.gif" />
+<img src="images/mappoint.gif" />
+<img src="images/bar-blue-tl.png" />
+<img src="images/bar-blue-tr.png" />
+<img src="images/bar-blue-bl.png" />
+<img src="images/bar-blue-br.png" />
+<img src="images/bar-red-tl.png" />
+<img src="images/bar-red-tr.png" />
+<img src="images/bar-red-bl.png" />
+<img src="images/bar-red-br.png" />
+<img src="images/bar-green-tl.png" />
+<img src="images/bar-green-tr.png" />
+<img src="images/bar-green-bl.png" />
+<img src="images/bar-green-br.png" />
+<img src="images/map-red-max.png" />
+<img src="images/map-red-min.png" />
+<img src="images/map-green-max.png" />
+<img src="images/map-green-min.png" />
+<img src="images/map-blue-max.png" />
+<img src="images/map-blue-min.png" />
 </div>
 
 <div id="main_frame">
@@ -147,7 +147,7 @@
 </div>
 
 <script type="text/javascript"><!--
-    Event.onReady(function() { cp1 = new Refresh.Web.ColorPicker("cp1",{startHex: "CEB014", startMode:"s"}); });
+    Event.onReady(function() { cp1 = new Refresh.Web.ColorPicker("cp1",{startHex: "CEB014", startMode:"s", clientFilesPath: "images/"}); });
 --></script>
 
 </body>

@@ -23,7 +23,7 @@ Refresh.Web.Slider.prototype = {
 	_arrow: null,
 
 	initialize: function(id, settings) {
-	
+
 		this.id = id;
 		this.settings = Object.extend(Object.extend({},Refresh.Web.DefaultSliderSettings), settings || {});
 
@@ -46,9 +46,9 @@ Refresh.Web.Slider.prototype = {
 
 		// attach 'this' to html objects
 		var slider = this;
-		
+
 		this.setPositioningVariables();
-		
+
 		this._event_docMouseMove = this._docMouseMove.bindAsEventListener(this);
 		this._event_docMouseUp = this._docMouseUp.bindAsEventListener(this);
 
@@ -65,19 +65,19 @@ Refresh.Web.Slider.prototype = {
 		// final setup
 		Refresh.Web.SlidersList.push(this);
 	},
-	
-	
+
+
 	setPositioningVariables: function() {
 		// calculate sizes and ranges
 		// BAR
 
 		this._barWidth = this._bar.getWidth();
 		this._barHeight = this._bar.getHeight();
-		
+
 		var pos = this._bar.cumulativeOffset();
 		this._barTop = pos.top;
 		this._barLeft = pos.left;
-		
+
 		this._barBottom = this._barTop + this._barHeight;
 		this._barRight = this._barLeft + this._barWidth;
 
@@ -93,15 +93,15 @@ Refresh.Web.Slider.prototype = {
 		this.MaxX = this._barRight;
 		this.MinY = this._barBottom;
 	},
-	
+
 	setArrowPositionFromValues: function(e) {
 		this.setPositioningVariables();
-		
+
 		// sets the arrow position from XValue and YValue properties
 
 		var arrowOffsetX = 0;
 		var arrowOffsetY = 0;
-		
+
 		// X Value/Position
 		if (this.settings.xMinValue != this.settings.xMaxValue) {
 
@@ -121,9 +121,9 @@ Refresh.Web.Slider.prototype = {
 
 				arrowOffsetX = xValue / xMax * this._barWidth;
 
-				if (parseInt(arrowOffsetX) == (xMax-1)) 
+				if (parseInt(arrowOffsetX) == (xMax-1))
 					arrowOffsetX=xMax;
-				else 
+				else
 					arrowOffsetX=parseInt(arrowOffsetX);
 
 				// shift back to normal values
@@ -132,16 +132,16 @@ Refresh.Web.Slider.prototype = {
 				}
 			}
 		}
-		
+
 		// X Value/Position
-		if (this.settings.yMinValue != this.settings.yMaxValue) {	
-			
+		if (this.settings.yMinValue != this.settings.yMaxValue) {
+
 			if (this.yValue == this.settings.yMinValue) {
 				arrowOffsetY = 0;
 			} else if (this.yValue == this.settings.yMaxValue) {
 				arrowOffsetY = this._barHeight-1;
 			} else {
-			
+
 				var yMax = this.settings.yMaxValue;
 				if (this.settings.yMinValue < 1)  {
 					yMax = yMax + Math.abs(this.settings.yMinValue) + 1;
@@ -153,7 +153,7 @@ Refresh.Web.Slider.prototype = {
 
 				var arrowOffsetY = yValue / yMax * this._barHeight;
 
-				if (parseInt(arrowOffsetY) == (yMax-1)) 
+				if (parseInt(arrowOffsetY) == (yMax-1))
 					arrowOffsetY=yMax;
 				else
 					arrowOffsetY=parseInt(arrowOffsetY);
@@ -168,13 +168,13 @@ Refresh.Web.Slider.prototype = {
 
 	},
 	_setArrowPosition: function(offsetX, offsetY) {
-		
-		
+
+
 		// validate
 		if (offsetX < 0) offsetX = 0
 		if (offsetX > this._barWidth) offsetX = this._barWidth;
 		if (offsetY < 0) offsetY = 0
-		if (offsetY > this._barHeight) offsetY = this._barHeight;	
+		if (offsetY > this._barHeight) offsetY = this._barHeight;
 
 		var posX = this._barLeft + offsetX;
 		var posY = this._barTop + offsetY;
@@ -191,46 +191,46 @@ Refresh.Web.Slider.prototype = {
 			posY = posY - parseInt(this._arrowHeight/2);
 		}
 		this._arrow.style.left = posX + 'px';
-		this._arrow.style.top = posY + 'px';	
+		this._arrow.style.top = posY + 'px';
 	},
 	_bar_mouseDown: function(e) {
 		this._mouseDown(e);
 	},
-	
+
 	_arrow_mouseDown: function(e) {
 		this._mouseDown(e);
 	},
-	
+
 	_mouseDown: function(e) {
 		Refresh.Web.ActiveSlider = this;
-		
+
 		this.setValuesFromMousePosition(e);
-		
+
 		Event.observe(document, 'mousemove', this._event_docMouseMove);
-		Event.observe(document, 'mouseup', this._event_docMouseUp);		
+		Event.observe(document, 'mouseup', this._event_docMouseUp);
 
 		Event.stop(e);
 	},
-	
+
 	_docMouseMove: function(e) {
 
 		this.setValuesFromMousePosition(e);
-		
+
 		Event.stop(e);
 	},
-	
+
 	_docMouseUp: function(e) {
 		Event.stopObserving( document, 'mouseup', this._event_docMouseUp);
 		Event.stopObserving( document, 'mousemove', this._event_docMouseMove);
 		Event.stop(e);
-	},	
-	
+	},
+
 	setValuesFromMousePosition: function(e) {
 		//this.setPositioningVariables();
-		
-	
+
+
 		var mouse = Event.pointer(e);
-		
+
 		var relativeX = 0;
 		var relativeY = 0;
 
@@ -248,26 +248,26 @@ Refresh.Web.Slider.prototype = {
 			relativeY = this._barHeight;
 		else
 			relativeY = mouse.y - this._barTop + 1;
-			
+
 
 		var newXValue = parseInt(relativeX / this._barWidth * this.settings.xMaxValue);
 		var newYValue = parseInt(relativeY / this._barHeight * this.settings.yMaxValue);
-		
+
 		// set values
 		this.xValue = newXValue;
-		this.yValue = newYValue;	
+		this.yValue = newYValue;
 
 		// position arrow
 		if (this.settings.xMaxValue == this.settings.xMinValue)
 			relativeX = 0;
 		if (this.settings.yMaxValue == this.settings.yMinValue)
-			relativeY = 0;		
+			relativeY = 0;
 		this._setArrowPosition(relativeX, relativeY);
 
 		// fire events
 		if(this.onValuesChanged)
 			this.onValuesChanged(this);
-	}	
+	}
 
 }
 

@@ -11,20 +11,20 @@ Object.extend(Event, {
     arguments.callee.done = true;
 
     if (Event._timer)  clearInterval(Event._timer);
-    
+
     Event._readyCallbacks.each(function(f) { f() });
     Event._readyCallbacks = null;
-    
+
   },
   onReady : function(f) {
     if (!this._readyCallbacks) {
       var domReady = this._domReady;
-      
+
       if (domReady.done) return f();
-      
+
       if (document.addEventListener)
         document.addEventListener("DOMContentLoaded", domReady, false);
-        
+
         /*@cc_on @*/
         /*@if (@_win32)
             var dummy = location.protocol == "https:" ?  "https://javascript:void(0)" : "javascript:void(0)";
@@ -33,13 +33,13 @@ Object.extend(Event, {
                 if (this.readyState == "complete") { domReady(); }
             };
         /*@end @*/
-        
-        if (/WebKit/i.test(navigator.userAgent)) { 
+
+        if (/WebKit/i.test(navigator.userAgent)) {
           this._timer = setInterval(function() {
-            if (/loaded|complete/.test(document.readyState)) domReady(); 
+            if (/loaded|complete/.test(document.readyState)) domReady();
           }, 10);
         }
-        
+
         Event.observe(window, 'load', domReady);
         Event._readyCallbacks =  [];
     }

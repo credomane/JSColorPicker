@@ -6,68 +6,68 @@ MIT style license
 if (!window.Refresh) Refresh = {};
 if (!Refresh.Web) Refresh.Web = {};
 
-Refresh.Web.Color = function(init) {	
+Refresh.Web.Color = function(init) {
 	var color = {
 		r: 0,
 		g: 0,
 		b: 0,
-		
+
 		h: 0,
 		s: 0,
 		v: 0,
-		
+
 		hex: '',
-		
+
 		setRgb: function(r, g, b) {
 			this.r = r;
 			this.g = g;
 			this.b = b;
-						
+
 			var newHsv = Refresh.Web.ColorMethods.rgbToHsv(this);
 			this.h = newHsv.h;
 			this.s = newHsv.s;
 			this.v = newHsv.v;
-			
-			this.hex = Refresh.Web.ColorMethods.rgbToHex(this);					
+
+			this.hex = Refresh.Web.ColorMethods.rgbToHex(this);
 		},
-		
+
 		setHsv: function(h, s, v) {
 			this.h = h;
 			this.s = s;
 			this.v = v;
-			
+
 			var newRgb = Refresh.Web.ColorMethods.hsvToRgb(this);
 			this.r = newRgb.r;
 			this.g = newRgb.g;
-			this.b = newRgb.b;	
-			
-			this.hex = Refresh.Web.ColorMethods.rgbToHex(newRgb);	
+			this.b = newRgb.b;
+
+			this.hex = Refresh.Web.ColorMethods.rgbToHex(newRgb);
 		},
-		
+
 		setHex: function(hex) {
 			this.hex = hex;
-			
+
 			var newRgb = Refresh.Web.ColorMethods.hexToRgb(this.hex);
 			this.r = newRgb.r;
 			this.g = newRgb.g;
 			this.b = newRgb.b;
-			
+
 			var newHsv = Refresh.Web.ColorMethods.rgbToHsv(newRgb);
 			this.h = newHsv.h;
 			this.s = newHsv.s;
-			this.v = newHsv.v;			
+			this.v = newHsv.v;
 		}
 	};
-	
+
 	if (init) {
 		if (init.hex)
 			color.setHex(init.hex);
 		else if (init.r)
 			color.setRgb(init.r, init.g, init.b);
 		else if (init.h)
-			color.setHsv(init.h, init.s, init.v);			
+			color.setHsv(init.h, init.s, init.v);
 	}
-	
+
 	return color;
 };
 Refresh.Web.ColorMethods = {
@@ -75,7 +75,7 @@ Refresh.Web.ColorMethods = {
 		hex = this.validateHex(hex);
 
 		var r='00', g='00', b='00';
-		
+
 		/*
 		if (hex.length == 3) {
 			r = hex.substring(0,1);
@@ -89,7 +89,7 @@ Refresh.Web.ColorMethods = {
 		if (hex.length == 6) {
 			r = hex.substring(0,2);
 			g = hex.substring(2,4);
-			b = hex.substring(4,6);	
+			b = hex.substring(4,6);
 		} else {
 			if (hex.length > 4) {
 				r = hex.substring(4, hex.length);
@@ -101,9 +101,9 @@ Refresh.Web.ColorMethods = {
 			}
 			if (hex.length > 0) {
 				b = hex.substring(0,hex.length);
-			}					
+			}
 		}
-		
+
 		return { r:this.hexToInt(r), g:this.hexToInt(g), b:this.hexToInt(b) };
 	},
 	validateHex: function(hex) {
@@ -188,7 +188,7 @@ Refresh.Web.ColorMethods = {
 				hsv.h += 360;
 			}
 		}
-		
+
 		hsv.s = parseInt(hsv.s * 100);
 		hsv.v = parseInt(hsv.v * 100);
 
@@ -197,7 +197,7 @@ Refresh.Web.ColorMethods = {
 	hsvToRgb: function (hsv) {
 
 		rgb = {r:0, g:0, b:0};
-		
+
 		var h = hsv.h;
 		var s = hsv.s;
 		var v = hsv.v;

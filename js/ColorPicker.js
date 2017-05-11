@@ -23,7 +23,7 @@ Refresh.Web.ColorPicker.prototype = {
 		this._hueRadio = $(this.id + '_HueRadio');
 		this._saturationRadio = $(this.id + '_SaturationRadio');
 		this._valueRadio = $(this.id + '_BrightnessRadio');
-		
+
 		this._redRadio = $(this.id + '_RedRadio');
 		this._greenRadio = $(this.id + '_GreenRadio');
 		this._blueRadio = $(this.id + '_BlueRadio');
@@ -32,7 +32,7 @@ Refresh.Web.ColorPicker.prototype = {
 		this._hueRadio.value = 'h';
 		this._saturationRadio.value = 's';
 		this._valueRadio.value = 'v';
-		
+
 		this._redRadio.value = 'r';
 		this._greenRadio.value = 'g';
 		this._blueRadio.value = 'b';
@@ -44,7 +44,7 @@ Refresh.Web.ColorPicker.prototype = {
 		Event.observe( this._hueRadio,'click', this._event_onRadioClicked);
 		Event.observe( this._saturationRadio,'click', this._event_onRadioClicked);
 		Event.observe( this._valueRadio,'click', this._event_onRadioClicked);
-		
+
 		Event.observe( this._redRadio,'click', this._event_onRadioClicked);
 		Event.observe( this._greenRadio,'click', this._event_onRadioClicked);
 		Event.observe( this._blueRadio,'click', this._event_onRadioClicked);
@@ -55,16 +55,17 @@ Refresh.Web.ColorPicker.prototype = {
 
 		// attach simple properties
 		this._preview = $(this.id + '_Preview');
-    
+
     // COLOR NAME & SHADE
     // attach divs
     this._colorChosenText = $(this.id +'_ColorChosenText');
     this._colorChosen = $(this.id + '_ColorChosen');
+    this._colorApprox = $(this.id + '_ColorApprox');
     this._colorNameText = $(this.id + '_ColorNameText');
     this._colorName = $(this.id + '_ColorName');
     this._colorShadeText = $(this.id + '_ColorShadeText');
     this._colorShade = $(this.id + '_ColorShade');
-		
+
 		// MAP
 		this._mapBase = $(this.id + '_ColorMap');
 		this._mapBase.style.width = '256px';
@@ -72,49 +73,49 @@ Refresh.Web.ColorPicker.prototype = {
 		this._mapBase.style.padding = 0;
 		this._mapBase.style.margin = 0;
 		this._mapBase.style.border = 'solid 1px #000';
-		
-		
+
+
 		this._mapL1 = new Element('img',{src:this.settings.clientFilesPath + 'blank.gif', width:256, height:256} ); //'blank.gif'});
 		this._mapBase.style.margin = 0;
 		this._mapL1.style.display = 'block';
-		this._mapBase.appendChild(this._mapL1);				
-	
+		this._mapBase.appendChild(this._mapL1);
+
 		this._mapL2 = new Element('img',{src:this.settings.clientFilesPath + 'blank.gif', width:256, height:256} ); //'blank.gif'});
 		this._mapBase.appendChild(this._mapL2);
 		this._mapL2.style.clear = 'both';
 		this._mapL2.style.margin = '-256px 0px 0px 0px';
 		this._mapL2.setOpacity(.5);
 		this._mapL2.style.display = 'block';
-		
+
 		// BAR
 		this._bar = $(this.id + '_ColorBar');
 		this._bar.style.width = '20px';
 		this._bar.style.height = '256px';
 		this._bar.style.padding = 0;
 		this._bar.style.margin = '0px 10px';
-		this._bar.style.border = 'solid 1px #000';	
-		
+		this._bar.style.border = 'solid 1px #000';
+
 		this._barL1 = new Element('img',{src:this.settings.clientFilesPath + 'blank.gif', width:20, height:256});
 		this._barL1.style.margin = '0px';
-		this._barL1.style.display = 'block';	
-		this._bar.appendChild(this._barL1);			
+		this._barL1.style.display = 'block';
+		this._bar.appendChild(this._barL1);
 
 		this._barL2 = new Element('img',{src:this.settings.clientFilesPath + 'blank.gif', width:20, height:256} );
 		this._barL2.style.margin = '-256px 0px 0px 0px';
-		this._barL2.style.display = 'block';	
+		this._barL2.style.display = 'block';
 		this._bar.appendChild(this._barL2);
-		
+
 		this._barL3 = new Element('img',{src:this.settings.clientFilesPath + 'blank.gif', width:20, height:256} );
 		this._barL3.style.margin = '-256px 0px 0px 0px';
 		this._barL3.style.backgroundColor = '#ff0000';
-		this._barL3.style.display = 'block';	
+		this._barL3.style.display = 'block';
 		this._bar.appendChild(this._barL3);
-		
+
 		this._barL4 = new Element('img',{src:this.settings.clientFilesPath + 'bar-brightness.png', width:20, height:256} );
 		this._barL4.style.margin = '-256px 0px 0px 0px';
-		this._barL4.style.display = 'block';	
-		this._bar.appendChild(this._barL4);				
-		
+		this._barL4.style.display = 'block';
+		this._bar.appendChild(this._barL4);
+
 		// attach map slider
 		this._map = new Refresh.Web.Slider(this._mapL2, {xMaxValue: 255, yMinValue: 255, arrowImage: this.settings.clientFilesPath + 'mappoint.gif'});
 
@@ -126,7 +127,7 @@ Refresh.Web.ColorPicker.prototype = {
 
 		// link up events
 		var cp = this;
-		
+
 		this._slider.onValuesChanged = function() { cp.sliderValueChanged() };
 		this._map.onValuesChanged = function() { cp.mapValueChanged(); }
 		this._cvp.onValuesChanged = function() { cp.textValuesChanged(); }
@@ -136,7 +137,7 @@ Refresh.Web.ColorPicker.prototype = {
 		var version = parseFloat(navigator.appVersion.split("MSIE")[1]);
 		if ((version < 7) && (document.body.filters))
 			this.isLessThanIE7 = true;
-		
+
 
 		// initialize values
 		this.setColorMode(this.settings.startMode);
@@ -145,7 +146,7 @@ Refresh.Web.ColorPicker.prototype = {
 		this._cvp.setValuesFromHex();
 		this.positionMapAndSliderArrows();
 		this.updateVisuals();
-		
+
 		this.color = null;
 	},
 	show: function() {
@@ -173,10 +174,10 @@ Refresh.Web.ColorPicker.prototype = {
 	setColorMode: function(colorMode) {
 
 		this.color = this._cvp.color;
-		
-		// reset all images		
+
+		// reset all images
 		function resetImage(cp, img) {
-			cp.setAlpha(img, 100);	
+			cp.setAlpha(img, 100);
 			img.style.backgroundColor = '';
 			img.src = cp.settings.clientFilesPath + 'blank.gif';
 			img.style.filter = '';
@@ -194,7 +195,7 @@ Refresh.Web.ColorPicker.prototype = {
 		this._redRadio.checked = false;
 		this._greenRadio.checked = false;
 		this._blueRadio.checked = false;
-	
+
 
 		switch (colorMode) {
 			case 'h':
@@ -202,7 +203,7 @@ Refresh.Web.ColorPicker.prototype = {
 
 				// MAP
 				// put a color layer on the bottom
-				this._mapL1.style.backgroundColor = '#' + this.color.hex;				
+				this._mapL1.style.backgroundColor = '#' + this.color.hex;
 
 				// add a hue map on the top
 				this._mapL2.style.backgroundColor = 'transparent';
@@ -218,9 +219,9 @@ Refresh.Web.ColorPicker.prototype = {
 				this._slider.settings.yMaxValue = 359;
 
 				break;
-				
+
 			case 's':
-				this._saturationRadio.checked = true;			
+				this._saturationRadio.checked = true;
 
 				// MAP
 				// bottom has saturation map
@@ -233,111 +234,111 @@ Refresh.Web.ColorPicker.prototype = {
 				// SLIDER
 				// bottom: color
 				this.setBG(this._barL3, this.color.hex);
-				
+
 				// top: graduated overlay
 				this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-saturation.png');
-				
+
 
 				this._map.settings.xMaxValue = 359;
 				this._map.settings.yMaxValue = 100;
 				this._slider.settings.yMaxValue = 100;
 
 				break;
-				
+
 			case 'v':
-				this._valueRadio.checked = true;			
+				this._valueRadio.checked = true;
 
 				// MAP
 				// bottom: nothing
-				
+
 				// top
 				this.setBG(this._mapL1,'000');
-				this.setImg(this._mapL2, this.settings.clientFilesPath + 'map-brightness.png');				
-				
+				this.setImg(this._mapL2, this.settings.clientFilesPath + 'map-brightness.png');
+
 				// SLIDER
 				// bottom
 				this._barL3.style.backgroundColor = '#' + this.color.hex;
-				
-				// top				
+
+				// top
 				this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-brightness.png');
-				
+
 
 				this._map.settings.xMaxValue = 359;
 				this._map.settings.yMaxValue = 100;
 				this._slider.settings.yMaxValue = 100;
 				break;
-				
+
 			case 'r':
 				this._redRadio.checked = true;
 				this.setImg(this._mapL2, this.settings.clientFilesPath + 'map-red-max.png');
 				this.setImg(this._mapL1, this.settings.clientFilesPath + 'map-red-min.png');
-				
+
 				this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-red-tl.png');
 				this.setImg(this._barL3, this.settings.clientFilesPath + 'bar-red-tr.png');
 				this.setImg(this._barL2, this.settings.clientFilesPath + 'bar-red-br.png');
-				this.setImg(this._barL1, this.settings.clientFilesPath + 'bar-red-bl.png');				
-				
+				this.setImg(this._barL1, this.settings.clientFilesPath + 'bar-red-bl.png');
+
 				break;
 
 			case 'g':
 				this._greenRadio.checked = true;
 				this.setImg(this._mapL2, this.settings.clientFilesPath + 'map-green-max.png');
 				this.setImg(this._mapL1, this.settings.clientFilesPath + 'map-green-min.png');
-				
+
 				this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-green-tl.png');
 				this.setImg(this._barL3, this.settings.clientFilesPath + 'bar-green-tr.png');
 				this.setImg(this._barL2, this.settings.clientFilesPath + 'bar-green-br.png');
-				this.setImg(this._barL1, this.settings.clientFilesPath + 'bar-green-bl.png');				
-				
+				this.setImg(this._barL1, this.settings.clientFilesPath + 'bar-green-bl.png');
+
 				break;
-				
+
 			case 'b':
 				this._blueRadio.checked = true;
 				this.setImg(this._mapL2, this.settings.clientFilesPath + 'map-blue-max.png');
 				this.setImg(this._mapL1, this.settings.clientFilesPath + 'map-blue-min.png');
-				
+
 				this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-blue-tl.png');
 				this.setImg(this._barL3, this.settings.clientFilesPath + 'bar-blue-tr.png');
 				this.setImg(this._barL2, this.settings.clientFilesPath + 'bar-blue-br.png');
 				this.setImg(this._barL1, this.settings.clientFilesPath + 'bar-blue-bl.png');
-				
-				//this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-hue.png');			
-				
+
+				//this.setImg(this._barL4, this.settings.clientFilesPath + 'bar-hue.png');
+
 				break;
-				
+
 			default:
 				alert('invalid mode');
 				break;
 		}
-		
+
 		switch (colorMode) {
 			case 'h':
 			case 's':
 			case 'v':
-			
+
 				this._map.settings.xMinValue = 1;
-				this._map.settings.yMinValue = 1;				
+				this._map.settings.yMinValue = 1;
 				this._slider.settings.yMinValue = 1;
 				break;
-				
+
 			case 'r':
 			case 'g':
 			case 'b':
-			
+
 				this._map.settings.xMinValue = 0;
-				this._map.settings.yMinValue = 0;				
-				this._slider.settings.yMinValue = 0;					
-				
+				this._map.settings.yMinValue = 0;
+				this._slider.settings.yMinValue = 0;
+
 				this._map.settings.xMaxValue = 255;
-				this._map.settings.yMaxValue = 255;				
-				this._slider.settings.yMaxValue = 255;	
+				this._map.settings.yMaxValue = 255;
+				this._slider.settings.yMaxValue = 255;
 				break;
 		}
-				
+
 		this.ColorMode = colorMode;
 
 		this.positionMapAndSliderArrows();
-		
+
 		this.updateMapVisuals();
 		this.updateSliderVisuals();
 	},
@@ -349,52 +350,52 @@ Refresh.Web.ColorPicker.prototype = {
 				this._cvp._saturationInput.value = this._map.xValue;
 				this._cvp._valueInput.value = 100 - this._map.yValue;
 				break;
-				
+
 			case 's':
 				this._cvp._hueInput.value = this._map.xValue;
 				this._cvp._valueInput.value = 100 - this._map.yValue;
 				break;
-				
+
 			case 'v':
 				this._cvp._hueInput.value = this._map.xValue;
 				this._cvp._saturationInput.value = 100 - this._map.yValue;
 				break;
-								
+
 			case 'r':
 				this._cvp._blueInput.value = this._map.xValue;
 				this._cvp._greenInput.value = 256 - this._map.yValue;
 				break;
-				
+
 			case 'g':
 				this._cvp._blueInput.value = this._map.xValue;
 				this._cvp._redInput.value = 256 - this._map.yValue;
 				break;
-				
+
 			case 'b':
 				this._cvp._redInput.value = this._map.xValue;
 				this._cvp._greenInput.value = 256 - this._map.yValue;
-				break;				
+				break;
 		}
-		
+
 		switch(this.ColorMode) {
 			case 'h':
 			case 's':
 			case 'v':
 				this._cvp.setValuesFromHsv();
 				break;
-				
+
 			case 'r':
 			case 'g':
 			case 'b':
 				this._cvp.setValuesFromRgb();
-				break;				
-		}		
+				break;
+		}
 
-		
+
 		this.updateVisuals();
 	},
 	sliderValueChanged: function() {
-		
+
 		switch(this.ColorMode) {
 			case 'h':
 				this._cvp._hueInput.value = 360 - this._slider.yValue;
@@ -405,7 +406,7 @@ Refresh.Web.ColorPicker.prototype = {
 			case 'v':
 				this._cvp._valueInput.value = 100 - this._slider.yValue;
 				break;
-				
+
 			case 'r':
 				this._cvp._redInput.value = 255 - this._slider.yValue;
 				break;
@@ -414,56 +415,56 @@ Refresh.Web.ColorPicker.prototype = {
 				break;
 			case 'b':
 				this._cvp._blueInput.value = 255 - this._slider.yValue;
-				break;				
+				break;
 		}
-		
+
 		switch(this.ColorMode) {
 			case 'h':
 			case 's':
 			case 'v':
 				this._cvp.setValuesFromHsv();
 				break;
-				
+
 			case 'r':
 			case 'g':
 			case 'b':
 				this._cvp.setValuesFromRgb();
-				break;				
-		}		
+				break;
+		}
 
 		this.updateVisuals();
 	},
 	positionMapAndSliderArrows: function() {
 		this.color = this._cvp.color;
-		
+
 		// Slider
 		var sliderValue = 0;
 		switch(this.ColorMode) {
 			case 'h':
 				sliderValue = 360 - this.color.h;
 				break;
-			
+
 			case 's':
 				sliderValue = 100 - this.color.s;
 				break;
-				
+
 			case 'v':
 				sliderValue = 100 - this.color.v;
 				break;
-				
+
 			case 'r':
 				sliderValue = 255- this.color.r;
 				break;
-			
+
 			case 'g':
 				sliderValue = 255- this.color.g;
 				break;
-				
+
 			case 'b':
 				sliderValue = 255- this.color.b;
-				break;				
-		}	
-		
+				break;
+		}
+
 		this._slider.yValue = sliderValue;
 		this._slider.setArrowPositionFromValues();
 
@@ -475,31 +476,31 @@ Refresh.Web.ColorPicker.prototype = {
 				mapXValue = this.color.s;
 				mapYValue = 100 - this.color.v;
 				break;
-				
+
 			case 's':
 				mapXValue = this.color.h;
 				mapYValue = 100 - this.color.v;
 				break;
-				
+
 			case 'v':
 				mapXValue = this.color.h;
 				mapYValue = 100 - this.color.s;
 				break;
-				
+
 			case 'r':
 				mapXValue = this.color.b;
 				mapYValue = 256 - this.color.g;
 				break;
-				
+
 			case 'g':
 				mapXValue = this.color.b;
 				mapYValue = 256 - this.color.r;
 				break;
-				
+
 			case 'b':
 				mapXValue = this.color.r;
 				mapYValue = 256 - this.color.g;
-				break;				
+				break;
 		}
 		this._map.xValue = mapXValue;
 		this._map.yValue = mapYValue;
@@ -513,77 +514,98 @@ Refresh.Web.ColorPicker.prototype = {
 	updatePreview: function() {
 		try {
 			this._preview.style.backgroundColor = '#' + this._cvp.color.hex;
-      
-      // COLOR NAME & SHADE
-      n_match = ntc.name('#' + this._cvp.color.hex);
-      n_rgb = n_match[0];                     // RGB value of closest match
-      n_name = n_match[1];                  // Text string: Color name
-      n_shade_rgb = n_match[2];           // RGB value of the shade 
-      n_shade_name = n_match[3];        // Text string: Shade name
-      this._colorNameText.innerHTML = n_name;
-      this._colorName.style.backgroundColor = n_rgb;
-      
-      this._colorShadeText.innerHTML = n_shade_name;
-      this._colorShade.style.backgroundColor = n_shade_rgb;
 
+            // COLOR NAME & SHADE
+            n_match = ntc.name('#' + this._cvp.color.hex);
+            n_rgb = n_match[0];             // RGB value of closest match
+            n_name = n_match[1];            // Text string: Color name
+            n_exact = n_match[2];           // exact or approximate?
+
+            //[[Lame way to do this I'm sure.
+            hue = this._cvp._hueInput.value
+            colors = [
+                ["red","FF0000"],
+                ["orange","FF7F00"],
+                ["yellow","FFFF00"],
+                ["green","00FF00"],
+                ["cyan","00FFFF"],
+                ["blue","0000FF"],
+                ["purple","7F00FF"],
+                ["magenta","FF00FF"]
+            ];
+
+            degrees = Math.floor(360 / colors.length);
+            hue=(hue > degrees * (colors.length - 1))?0:hue; //Color shift back to red for end of spectrum.
+            color = Math.round(hue/degrees);
+            //]]
+
+            n_shade_name = colors[color][0];
+            n_shade_rgb = "#" + colors[color][1];
+
+            this._colorApprox.innerHTML = n_exact?"(exact)":"(approx)";
+            this._colorNameText.innerHTML = n_name;
+            this._colorName.style.backgroundColor = n_rgb;
+
+            this._colorShadeText.innerHTML = n_shade_name;
+            this._colorShade.style.backgroundColor = n_shade_rgb;
 		} catch (e) {}
 	},
 	updateMapVisuals: function() {
-		
+
 		this.color = this._cvp.color;
-		
+
 		switch(this.ColorMode) {
 			case 'h':
 				// fake color with only hue
-				var color = new Refresh.Web.Color({h:this.color.h, s:100, v:100});					
+				var color = new Refresh.Web.Color({h:this.color.h, s:100, v:100});
 				this.setBG(this._mapL1, color.hex);
 				break;
-				
+
 			case 's':
 				this.setAlpha(this._mapL2, 100 - this.color.s);
 				break;
-				
+
 			case 'v':
 				this.setAlpha(this._mapL2, this.color.v);
 				break;
-				
-			case 'r':								
+
+			case 'r':
 				this.setAlpha(this._mapL2, this.color.r/256*100);
 				break;
-				
+
 			case 'g':
 				this.setAlpha(this._mapL2, this.color.g/256*100);
 				break;
-				
+
 			case 'b':
 				this.setAlpha(this._mapL2, this.color.b/256*100);
-				break;				
+				break;
 		}
 	},
 	updateSliderVisuals: function() {
-	
+
 		this.color = this._cvp.color;
-		
+
 		switch(this.ColorMode) {
 			case 'h':
 				break;
-				
+
 			case 's':
 				var saturatedColor = new Refresh.Web.Color({h:this.color.h, s:100, v:this.color.v});
 				this.setBG(this._barL3, saturatedColor.hex);
 				break;
-				
+
 			case 'v':
 				var valueColor = new Refresh.Web.Color({h:this.color.h, s:this.color.s, v:100});
 				this.setBG(this._barL3, valueColor.hex);
 				break;
 			case 'r':
-			case 'g':				
+			case 'g':
 			case 'b':
-			
+
 				var hValue = 0;
 				var vValue = 0;
-				
+
 				if (this.ColorMode == 'r') {
 					hValue = this._cvp._blueInput.value;
 					vValue = this._cvp._greenInput.value;
@@ -594,21 +616,21 @@ Refresh.Web.ColorPicker.prototype = {
 					hValue = this._cvp._redInput.value;
 					vValue = this._cvp._greenInput.value;
 				}
-			
+
 				var horzPer = (hValue /256)*100;
 				var vertPer = ( vValue/256)*100;
-				
+
 				var horzPerRev = ( (256-hValue)/256)*100;
 				var vertPerRev = ( (256-vValue)/256)*100;
-										
+
 				this.setAlpha(this._barL4, (vertPer>horzPerRev) ? horzPerRev : vertPer);
-				this.setAlpha(this._barL3, (vertPer>horzPer) ? horzPer : vertPer); 
+				this.setAlpha(this._barL3, (vertPer>horzPer) ? horzPer : vertPer);
 				this.setAlpha(this._barL2, (vertPerRev>horzPer) ? horzPer : vertPerRev);
 				this.setAlpha(this._barL1, (vertPerRev>horzPerRev) ? horzPerRev : vertPerRev);
-			
+
 				break;
-							
-			
+
+
 		}
 	},
 	setBG: function(el, c) {
@@ -617,24 +639,24 @@ Refresh.Web.ColorPicker.prototype = {
 		} catch (e) {}
 	},
 	setImg: function(img, src) {
-	
+
 		if (src.indexOf('png') && this.isLessThanIE7) {
 			img.pngSrc = src;
 			img.src = this.settings.clientFilesPath + 'blank.gif';
-			img.style.filter = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + src + '\');';	
-		
+			img.style.filter = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + src + '\');';
+
 		} else {
 			img.src = src;
 		}
 	},
 	setAlpha: function(obj, alpha) {
-		if (this.isLessThanIE7) {			
+		if (this.isLessThanIE7) {
 			var src = obj.pngSrc;
 			// exception for the hue map
 			if (src != null && src.indexOf('map-hue') == -1)
-				obj.style.filter = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + src + '\') progid:DXImageTransform.Microsoft.Alpha(opacity=' + alpha + ')';	
+				obj.style.filter = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + src + '\') progid:DXImageTransform.Microsoft.Alpha(opacity=' + alpha + ')';
 		} else {
-			obj.setOpacity(alpha/100);		
+			obj.setOpacity(alpha/100);
 		}
 	}
 };

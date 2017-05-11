@@ -32,7 +32,7 @@ Refresh.Web.ColorValuePicker.prototype = {
 		this._event_onRgbKeyUp = this._onRgbKeyUp.bindAsEventListener(this);
 		this._event_onRgbBlur = this._onRgbBlur.bindAsEventListener(this);
 		this._event_onHexKeyUp = this._onHexKeyUp.bindAsEventListener(this);
-		
+
 		// HSB
 		Event.observe( this._hueInput,'keyup', this._event_onHsvKeyUp);
 		Event.observe( this._valueInput,'keyup',this._event_onHsvKeyUp);
@@ -51,24 +51,24 @@ Refresh.Web.ColorValuePicker.prototype = {
 
 		// HEX
 		Event.observe( this._hexInput,'keyup', this._event_onHexKeyUp);
-		
+
 		this.color = new Refresh.Web.Color();
-		
+
 		// get an initial value
 		if (this._hexInput.value != '')
 			this.color.setHex(this._hexInput.value);
-			
-			
+
+
 		// set the others based on initial value
 		this._hexInput.value = this.color.hex;
-		
+
 		this._redInput.value = this.color.r;
 		this._greenInput.value = this.color.g;
 		this._blueInput.value = this.color.b;
-		
+
 		this._hueInput.value = this.color.h;
 		this._saturationInput.value = this.color.s;
-		this._valueInput.value = this.color.v;		
+		this._valueInput.value = this.color.v;
 
 	},
 	_onHsvKeyUp: function(e) {
@@ -135,15 +135,15 @@ Refresh.Web.ColorValuePicker.prototype = {
 		return true;
 	},
 	_setValueInRange: function(value,min,max) {
-		if (value == '' || isNaN(value)) 		
+		if (value == '' || isNaN(value))
 			return min;
-		
+
 		value = parseInt(value);
-		if (value > max) 
+		if (value > max)
 			return max;
-		if (value < min) 
+		if (value < min)
 			return min;
-		
+
 		return value;
 	},
 	setValuesFromRgb: function() {
@@ -154,8 +154,8 @@ Refresh.Web.ColorValuePicker.prototype = {
 		this._valueInput.value = this.color.v;
 	},
 	setValuesFromHsv: function() {
-		this.color.setHsv(this._hueInput.value, this._saturationInput.value, this._valueInput.value);		
-		
+		this.color.setHsv(this._hueInput.value, this._saturationInput.value, this._valueInput.value);
+
 		this._hexInput.value = this.color.hex;
 		this._redInput.value = this.color.r;
 		this._greenInput.value = this.color.g;
@@ -167,7 +167,7 @@ Refresh.Web.ColorValuePicker.prototype = {
 		this._redInput.value = this.color.r;
 		this._greenInput.value = this.color.g;
 		this._blueInput.value = this.color.b;
-		
+
 		this._hueInput.value = this.color.h;
 		this._saturationInput.value = this.color.s;
 		this._valueInput.value = this.color.v;

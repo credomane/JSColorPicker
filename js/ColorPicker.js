@@ -521,33 +521,17 @@ Refresh.Web.ColorPicker.prototype = {
             n_name = n_match[1];            // Text string: Color name
             n_exact = n_match[2];           // exact or approximate?
 
-            //[[Lame way to do this I'm sure.
-            hue = this._cvp._hueInput.value
-            colors = [
-                ["red","FF0000"],
-                ["orange","FF7F00"],
-                ["yellow","FFFF00"],
-                ["green","00FF00"],
-                ["cyan","00FFFF"],
-                ["blue","0000FF"],
-                ["purple","7F00FF"],
-                ["magenta","FF00FF"]
-            ];
-
-            degrees = Math.floor(360 / colors.length);
-            hue=(hue > degrees * (colors.length - 1))?0:hue; //Color shift back to red for end of spectrum.
-            color = Math.round(hue/degrees);
-            //]]
-
-            n_shade_name = colors[color][0];
-            n_shade_rgb = "#" + colors[color][1];
+            n2_match = ntc2.name('#' + this._cvp.color.hex);
+            n2_rgb = n2_match[0];             // RGB value of closest match
+            n2_name = n2_match[1];            // Text string: Color name
+            n2_exact = n2_match[2];           // exact or approximate?
 
             this._colorApprox.innerHTML = n_exact?"(exact)":"(approx)";
             this._colorNameText.innerHTML = n_name;
             this._colorName.style.backgroundColor = n_rgb;
 
-            this._colorShadeText.innerHTML = n_shade_name;
-            this._colorShade.style.backgroundColor = n_shade_rgb;
+            this._colorShadeText.innerHTML = n2_name;
+            this._colorShade.style.backgroundColor = n2_rgb;
 		} catch (e) {}
 	},
 	updateMapVisuals: function() {

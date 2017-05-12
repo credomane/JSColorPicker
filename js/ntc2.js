@@ -119,14 +119,15 @@ var ntc2 = {
 ["FF0000", "Red"],
 ["FF7F00", "Orange"],
 ["FFFF00", "Yellow"],
-["7FFF00", "Yellow-Green"],
+["7FFF00", "Chartreuse / Yellow-Green"],
 ["00FF00", "Green"],
-["00FF2F", "Green-Cyan"],
+["00FF7F", "Spring Green / Green-Cyan"],
 ["00FFFF", "Cyan / Aqua"],
-["007FFF", "Indigo"],
+["007FFF", "Azure"],
 ["0000FF", "Blue"],
-["7F00FF", "Purple"],
+["7F00FF", "Violet / Purple"],
 ["FF00FF", "Magenta / Fuchsia"],
+["FF007F", "Rose"],
 ]
 
 }

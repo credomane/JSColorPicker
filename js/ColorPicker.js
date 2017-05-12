@@ -537,6 +537,10 @@ Refresh.Web.ColorPicker.prototype = {
 
             this._colorShadeText.innerHTML = n2_name;
             this._colorShade.style.backgroundColor = n2_rgb;
+
+            var href = location.href;
+            href = href.split("#")[0] || href;
+            window.location.replace(href + '#' + this._cvp.color.hex);
 		} catch (e) {}
 	},
 	updateMapVisuals: function() {

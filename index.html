@@ -150,7 +150,20 @@
 </div>
 
 <script type="text/javascript"><!--
-    Event.onReady(function() { cp1 = new Refresh.Web.ColorPicker("cp1",{startHex: "FF0000", startMode:"h", clientFilesPath: "images/"}); });
+    function getRandomArbitrary(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    Event.onReady(function() {
+        var href = location.href;
+        color = href.split("#")[1] || "";
+        color = color.toUpperCase();
+        if(color.length < 3 || color.length > 7)
+            color = getRandomArbitrary(1, 16777215).toString(16);
+        if(color.length == 4)
+            color = color.substr(1, 1) + color.substr(1, 1) + color.substr(2, 1) + color.substr(2, 1) + color.substr(3, 1) + color.substr(3, 1);
+
+        cp1 = new Refresh.Web.ColorPicker("cp1",{startHex: color, startMode:"h", clientFilesPath: "images/"});
+    });
 --></script>
 
 </body>

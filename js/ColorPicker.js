@@ -540,7 +540,7 @@ Refresh.Web.ColorPicker.prototype = {
 
             var href = location.href;
             href = href.split("#")[0] || href;
-            window.location.replace(href + '#' + this._cvp.color.hex);
+            window.location.replace(href + '#' + this._cvp.color.hex.toUpperCase());
 		} catch (e) {}
 	},
 	updateMapVisuals: function() {

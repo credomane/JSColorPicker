@@ -63,6 +63,8 @@ Refresh.Web.ColorPicker.prototype = {
     this._colorApprox = $(this.id + '_ColorApprox');
     this._colorNameText = $(this.id + '_ColorNameText');
     this._colorName = $(this.id + '_ColorName');
+    this._colorRealNameText = $(this.id + '_ColorRealNameText');
+    this._colorRealName = $(this.id + '_ColorRealName');
     this._colorShadeText = $(this.id + '_ColorShadeText');
     this._colorShade = $(this.id + '_ColorShade');
 
@@ -529,6 +531,9 @@ Refresh.Web.ColorPicker.prototype = {
             this._colorApprox.innerHTML = n_exact?"(exact)":"(approx)";
             this._colorNameText.innerHTML = n_name;
             this._colorName.style.backgroundColor = n_rgb;
+
+            this._colorRealNameText.innerHTML = n_exact?n_name:"";
+            this._colorRealName.style.backgroundColor = '#' + this._cvp.color.hex;
 
             this._colorShadeText.innerHTML = n2_name;
             this._colorShade.style.backgroundColor = n2_rgb;

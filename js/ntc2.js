@@ -114,16 +114,19 @@ var ntc2 = {
 
   names: [
 ["000000", "Black"],
-["0000FF", "Blue"],
-["00FF00", "Green"],
-["00FFFF", "Cyan / Aqua"],
-["660099", "Purple"],
 ["808080", "Gray"],
+["FFFFFF", "White"],
 ["FF0000", "Red"],
-["FF00FF", "Magenta / Fuchsia"],
-["FF681F", "Orange"],
+["FF7F00", "Orange"],
 ["FFFF00", "Yellow"],
-["FFFFFF", "White"]
+["7FFF00", "Yellow-Green"],
+["00FF00", "Green"],
+["00FF2F", "Green-Cyan"],
+["00FFFF", "Cyan / Aqua"],
+["007FFF", "Indigo"],
+["0000FF", "Blue"],
+["7F00FF", "Purple"],
+["FF00FF", "Magenta / Fuchsia"],
 ]
 
 }

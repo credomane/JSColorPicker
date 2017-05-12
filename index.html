@@ -159,6 +159,8 @@
         color = color.toUpperCase();
         if(color.length < 3 || color.length > 7)
             color = getRandomArbitrary(1, 16777215).toString(16);
+            while(color.length<6)
+                color="0"+color;
         if(color.length == 4)
             color = color.substr(1, 1) + color.substr(1, 1) + color.substr(2, 1) + color.substr(2, 1) + color.substr(3, 1) + color.substr(3, 1);
 
